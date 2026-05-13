@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Guide – Module 5: IT Culture and the Society</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  :root[data-theme="dark"] {
+    --bg: #0d1117; --bg2: #161b22; --card: #1c2333; --card-hover: #212840;
+    --border: rgba(255,255,255,0.07); --text: #e6edf3; --text-muted: #8b949e; --text-sub: #c9d1d9;
+    --gold: #f0c060; --gold-dim: rgba(240,192,96,0.15);
+    --teal: #39d2a6; --teal-dim: rgba(57,210,166,0.15);
+    --red: #f85149; --red-dim: rgba(248,81,73,0.15);
+    --purple: #bc8cff; --purple-dim: rgba(188,140,255,0.15);
+    --blue: #58a6ff; --blue-dim: rgba(88,166,255,0.15);
+    --header-bg: #090d14; --section-border: #f0c060;
+    --highlight-bg: rgba(240,192,96,0.18); --table-head: #212840;
+    --table-even: rgba(255,255,255,0.03); --scrollbar: #30363d;
+  }
+  :root[data-theme="light"] {
+    --bg: #fdf6ec; --bg2: #f4ede0; --card: #ffffff; --card-hover: #f7f3ec;
+    --border: rgba(15,29,59,0.08); --text: #0f1d3b; --text-muted: #6b7a99; --text-sub: #2b3a5a;
+    --gold: #c8960a; --gold-dim: rgba(200,150,10,0.12);
+    --teal: #1a7f6e; --teal-dim: #e8f4f1;
+    --red: #c0392b; --red-dim: #fde8e8;
+    --purple: #5a3ea0; --purple-dim: #eee8ff;
+    --blue: #1565c0; --blue-dim: #e3f0ff;
+    --header-bg: #0f1d3b; --section-border: #e8b84b;
+    --highlight-bg: #fff3c2; --table-head: #0f1d3b;
+    --table-even: #f9f7f4; --scrollbar: #ccc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 3px; }
+  body { background: var(--bg); font-family: 'DM Sans', sans-serif; color: var(--text); min-height: 100vh; transition: background 0.4s, color 0.4s; }
+
+  #particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+  .particle { position: absolute; border-radius: 50%; opacity: 0; animation: floatUp linear infinite; }
+  @keyframes floatUp {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    10% { opacity: 0.4; } 90% { opacity: 0.15; }
+    100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+  }
+
+  header { background: var(--header-bg); padding: 2.5rem 2rem 0; text-align: center; position: relative; overflow: hidden; z-index: 1; }
+  .header-glow { position: absolute; top: -80px; left: 50%; transform: translateX(-50%); width: 400px; height: 200px; background: radial-gradient(ellipse, rgba(57,210,166,0.18) 0%, transparent 70%); animation: pulseGlow 4s ease-in-out infinite; }
+  @keyframes pulseGlow { 0%,100%{opacity:.6;transform:translateX(-50%) scale(1);}50%{opacity:1;transform:translateX(-50%) scale(1.15);} }
+  header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem,4vw,2.4rem); color: #fff; letter-spacing: 0.02em; position: relative; animation: slideDown 0.7s cubic-bezier(0.22,1,0.36,1) both; }
+  header p { color: var(--teal); font-size: 0.9rem; margin-top: 0.4rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; position: relative; animation: slideDown 0.8s 0.1s cubic-bezier(0.22,1,0.36,1) both; }
+  @keyframes slideDown { from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);} }
+
+  .theme-toggle { position: absolute; top: 1rem; right: 1rem; background: var(--teal-dim); border: 1px solid var(--teal); color: var(--teal); padding: 0.35rem 0.75rem; border-radius: 20px; cursor: pointer; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; transition: all 0.2s; z-index: 10; }
+  .theme-toggle:hover { background: var(--teal); color: #fff; }
+
+  .tabs { display: flex; max-width: 860px; margin: 2rem auto 0; padding: 0 1rem; border-bottom: 1px solid var(--border); position: relative; }
+  .tab-btn { flex: 1; padding: 0.8rem 0.5rem; background: transparent; color: var(--text-muted); border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; border-bottom: 3px solid transparent; position: relative; bottom: -1px; }
+  .tab-btn.active { color: var(--teal); border-bottom-color: var(--teal); }
+  .tab-btn:hover:not(.active) { color: var(--text); }
+
+  main { max-width: 860px; margin: 0 auto; padding: 2rem 1rem 5rem; position: relative; z-index: 1; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .module-banner {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin: 2.5rem 0 1.2rem; padding: 0.8rem 1.2rem;
+    border-radius: 12px; font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700;
+  }
+  .module-banner.l1 { background: rgba(57,210,166,0.1); border: 1px solid rgba(57,210,166,0.3); color: var(--teal); }
+  .module-banner.l2 { background: rgba(88,166,255,0.1); border: 1px solid rgba(88,166,255,0.3); color: var(--blue); }
+  .module-banner .badge { font-size: 0.65rem; font-family: 'DM Sans', sans-serif; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 20px; }
+  .l1 .badge { background: var(--teal-dim); }
+  .l2 .badge { background: var(--blue-dim); }
+
+  .section-label { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--text); margin: 1.8rem 0 0.8rem; padding: 0.45rem 0.8rem; border-left: 4px solid var(--teal); background: var(--teal-dim); border-radius: 0 8px 8px 0; animation: fadeInLeft 0.5s ease both; }
+  .section-label.blue   { border-left-color: var(--blue);   background: var(--blue-dim); }
+  .section-label.purple { border-left-color: var(--purple); background: var(--purple-dim); }
+  .section-label.gold   { border-left-color: var(--gold);   background: var(--gold-dim); }
+  .section-label.red    { border-left-color: var(--red);    background: var(--red-dim); }
+  @keyframes fadeInLeft { from{opacity:0;transform:translateX(-16px);}to{opacity:1;transform:translateX(0);} }
+
+  .card { background: var(--card); border-radius: 14px; box-shadow: 0 2px 16px rgba(0,0,0,0.25); margin-bottom: 0.85rem; overflow: hidden; border: 1px solid var(--border); transition: transform 0.2s,box-shadow 0.2s,border-color 0.2s; animation: cardIn 0.4s ease both; }
+  @keyframes cardIn { from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);} }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(0,0,0,0.35); border-color: rgba(57,210,166,0.25); }
+  .card-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.2rem; cursor: pointer; user-select: none; transition: background 0.15s; gap: 1rem; }
+  .card-header:hover { background: var(--card-hover); }
+  .card-title { font-weight: 600; font-size: 0.97rem; color: var(--text); flex: 1; }
+  .tag { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; padding: 0.22rem 0.6rem; border-radius: 20px; white-space: nowrap; }
+  .tag-def     { background: var(--teal-dim);   color: var(--teal); }
+  .tag-type    { background: var(--blue-dim);   color: var(--blue); }
+  .tag-pros    { background: var(--teal-dim);   color: var(--teal); }
+  .tag-cons    { background: var(--red-dim);    color: var(--red); }
+  .tag-how     { background: var(--purple-dim); color: var(--purple); }
+  .tag-trend   { background: var(--gold-dim);   color: var(--gold); }
+  .tag-history { background: var(--blue-dim);   color: var(--blue); }
+  .chevron { font-size: 0.9rem; color: var(--text-muted); transition: transform 0.3s cubic-bezier(0.22,1,0.36,1); flex-shrink: 0; }
+  .card.open .chevron { transform: rotate(180deg); }
+  .card-body { display: none; padding: 0 1.2rem 1.2rem; border-top: 1px solid var(--border); animation: expandIn 0.25s ease both; }
+  @keyframes expandIn { from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);} }
+  .card.open .card-body { display: block; }
+  .card-body p,.card-body li { font-size: 0.92rem; line-height: 1.75; color: var(--text-sub); }
+  .card-body ul { padding-left: 1.3rem; margin-top: 0.5rem; }
+  .card-body li { margin-bottom: 0.35rem; }
+  .highlight { background: var(--highlight-bg); padding: 0.1em 0.35em; border-radius: 4px; font-weight: 600; color: var(--text); }
+  .compare-table { width: 100%; border-collapse: collapse; margin-top: 0.9rem; font-size: 0.86rem; border-radius: 8px; overflow: hidden; }
+  .compare-table th { background: var(--table-head); color: #fff; padding: 0.55rem 0.8rem; text-align: left; font-weight: 600; }
+  .compare-table td { padding: 0.45rem 0.8rem; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text-sub); }
+  .compare-table tr:nth-child(even) td { background: var(--table-even); }
+
+  .steps { counter-reset: step; margin-top: 0.5rem; }
+  .step { display: flex; gap: 0.7rem; margin-bottom: 0.55rem; align-items: flex-start; }
+  .step-num { background: var(--teal-dim); color: var(--teal); border-radius: 50%; width: 22px; height: 22px; font-size: 0.72rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .step-text { font-size: 0.92rem; color: var(--text-sub); line-height: 1.65; }
+  .step-label { font-weight: 700; color: var(--text); }
+
+  .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.8rem; }
+  @media(max-width:500px){ .pros-cons { grid-template-columns: 1fr; } }
+  .pros-box, .cons-box { border-radius: 10px; padding: 0.9rem 1rem; }
+  .pros-box { background: var(--teal-dim); border: 1px solid rgba(57,210,166,0.25); }
+  .cons-box { background: var(--red-dim); border: 1px solid rgba(248,81,73,0.25); }
+  .pros-box h4 { color: var(--teal); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.6rem; }
+  .cons-box h4 { color: var(--red); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.6rem; }
+  .pros-box li, .cons-box li { font-size: 0.87rem; color: var(--text-sub); margin-bottom: 0.3rem; }
+
+  /* FLASHCARD */
+  .flashcard-area { margin-top: 1.5rem; }
+  .fc-progress { text-align: center; font-size: 0.83rem; color: var(--text-muted); margin-bottom: 1.2rem; font-weight: 500; }
+  .fc-scene { perspective: 1200px; margin: 0 auto; max-width: 600px; }
+  .flashcard { background: transparent; border-radius: 18px; min-height: 240px; cursor: pointer; position: relative; transform-style: preserve-3d; transition: transform 0.55s cubic-bezier(0.22,1,0.36,1); box-shadow: 0 8px 40px rgba(0,0,0,0.4); }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .fc-face { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; text-align: center; border: 1.5px solid var(--border); }
+  .fc-front { background: var(--card); border-color: rgba(57,210,166,0.3); }
+  .fc-back { background: linear-gradient(135deg,#0a2e2a 0%,#061a18 100%); border-color: rgba(57,210,166,0.3); transform: rotateY(180deg); }
+  .fc-label { position: absolute; top: 0.9rem; left: 1.1rem; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); }
+  .fc-back .fc-label { color: var(--gold); }
+  .fc-module-tag { position: absolute; top: 0.9rem; right: 1.1rem; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.15rem 0.5rem; border-radius: 10px; }
+  .fc-question { font-family: 'Playfair Display', serif; font-size: clamp(1.05rem,2.5vw,1.25rem); color: var(--text); line-height: 1.5; }
+  .fc-answer { font-size: 0.93rem; color: #c0ffe8; line-height: 1.75; white-space: pre-line; }
+  .fc-hint { font-size: 0.75rem; color: var(--text-muted); margin-top: 1.2rem; }
+  .fc-controls { display: flex; gap: 0.8rem; justify-content: center; margin-top: 1.4rem; flex-wrap: wrap; }
+  .fc-bar-wrap { height: 4px; background: var(--border); border-radius: 2px; margin-bottom: 1.2rem; }
+  .fc-bar { height: 4px; background: var(--teal); border-radius: 2px; transition: width 0.4s ease; }
+
+  .filter-row { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.2rem; }
+  .filter-btn { background: var(--card); border: 1px solid var(--border); color: var(--text-muted); padding: 0.35rem 0.9rem; border-radius: 20px; cursor: pointer; font-family: 'DM Sans',sans-serif; font-size: 0.78rem; font-weight: 600; transition: all 0.15s; }
+  .filter-btn:hover { border-color: var(--teal); color: var(--text); }
+  .filter-btn.active-f { border-color: var(--teal); color: var(--teal); background: var(--teal-dim); }
+
+  .btn { padding: 0.6rem 1.4rem; border-radius: 10px; border: none; cursor: pointer; font-family: 'DM Sans',sans-serif; font-weight: 600; font-size: 0.88rem; transition: all 0.18s; letter-spacing: 0.03em; }
+  .btn-teal { background: var(--teal); color: #0d1117; }
+  .btn-teal:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .btn-outline { background: transparent; border: 1.5px solid var(--text-muted); color: var(--text); }
+  .btn-outline:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-1px); }
+
+  /* QUIZ */
+  .quiz-intro { text-align: center; padding: 3rem 1rem; }
+  .quiz-intro h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 0.7rem; color: var(--text); }
+  .quiz-intro p { color: var(--text-muted); margin-bottom: 1.8rem; }
+  .quiz-filter-row { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .qf-btn { background: var(--card); border: 1px solid var(--border); color: var(--text-muted); padding: 0.4rem 1rem; border-radius: 20px; cursor: pointer; font-family: 'DM Sans',sans-serif; font-size: 0.8rem; font-weight: 600; transition: all 0.15s; }
+  .qf-btn.on { border-color: var(--teal); color: var(--teal); background: var(--teal-dim); }
+  .qf-btn.on.l2c { border-color: var(--blue); color: var(--blue); background: var(--blue-dim); }
+  .quiz-q { background: var(--card); border-radius: 14px; padding: 1.4rem 1.4rem 1rem; box-shadow: 0 2px 16px rgba(0,0,0,0.25); margin-bottom: 1.4rem; border: 1px solid var(--border); animation: cardIn 0.35s ease both; }
+  .quiz-q-text { font-weight: 600; font-size: 0.97rem; margin-bottom: 1rem; line-height: 1.55; color: var(--text); }
+  .quiz-q-module { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .quiz-opt { display: block; width: 100%; text-align: left; margin-bottom: 0.5rem; padding: 0.65rem 1rem; background: var(--bg2); border: 1.5px solid var(--border); border-radius: 10px; color: var(--text-sub); font-family: 'DM Sans',sans-serif; font-size: 0.9rem; cursor: pointer; transition: all 0.15s; }
+  .quiz-opt:hover { border-color: var(--teal); color: var(--text); background: var(--teal-dim); }
+  .quiz-opt.correct { background: var(--teal-dim); border-color: var(--teal); color: var(--teal); font-weight: 700; }
+  .quiz-opt.wrong { background: var(--red-dim); border-color: var(--red); color: var(--red); }
+  .quiz-opt.disabled { opacity: 0.45; cursor: default; }
+  .quiz-feedback { margin-top: 0.6rem; padding: 0.7rem 1rem; border-radius: 8px; font-size: 0.86rem; line-height: 1.55; }
+  .quiz-feedback.ok { background: var(--teal-dim); color: var(--teal); }
+  .quiz-feedback.bad { background: var(--red-dim); color: var(--red); }
+  .quiz-score { text-align: center; padding: 2.5rem 1rem; background: var(--card); border-radius: 18px; margin-top: 2rem; border: 1px solid var(--border); }
+  .quiz-score h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 0.7rem; }
+  .big-score { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--teal); display: block; margin: 0.5rem 0; }
+  .quiz-score p { color: var(--text-muted); font-size: 1rem; margin-bottom: 0.5rem; }
+
+  .overview-box { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--teal); border-radius: 0 12px 12px 0; padding: 1.2rem 1.4rem; margin-bottom: 1.8rem; }
+  .overview-box p { font-size: 0.93rem; line-height: 1.8; color: var(--text-sub); }
+  .obj-list { list-style: none; margin-top: 0.8rem; }
+  .obj-list li { display: flex; gap: 0.6rem; align-items: flex-start; margin-bottom: 0.4rem; font-size: 0.92rem; color: var(--text-sub); }
+  .obj-list li::before { content: "✓"; color: var(--teal); font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+</style>
+</head>
+<body>
+<div id="particles"></div>
+
+<header>
+  <div class="header-glow"></div>
+  <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">☀ Light</button>
+  <h1>Module 5: IT Culture and the Society</h1>
+  <p>Information Technology &nbsp;·&nbsp; Cotabato State University</p>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('notes',event)">📖 Notes</button>
+    <button class="tab-btn" onclick="switchTab('flashcards',event)">🃏 Flashcards</button>
+    <button class="tab-btn" onclick="switchTab('quiz',event)">📝 Quiz</button>
+  </div>
+</header>
+
+<main>
+
+<!-- ===== NOTES TAB ===== -->
+<div class="tab-content active" id="tab-notes">
+
+  <div class="overview-box" style="margin-top:1.5rem;">
+    <p>Technology is changing every aspect of our lives. One of the greatest challenges is not just the devices or software — it's about managing <span style="color:var(--teal);font-weight:600;">cultural change</span> and its effects on society. This module covers technological advancements and future trends that shape how we live.</p>
+    <ul class="obj-list">
+      <li>Identify current and emerging trends in technology</li>
+      <li>Understand how technology affects culture and society</li>
+      <li>Assess the positive and negative effects of these advancements</li>
+    </ul>
+  </div>
+
+  <!-- LESSON 1 -->
+  <div class="module-banner l1"><span class="badge">Lesson 1</span> Internet of Things (IoT)</div>
+
+  <p class="section-label">What is IoT?</p>
+
+  <div class="card" onclick="toggleCard(this,event)">
+    <div class="card-header"><span class="card-title">Definition of IoT</span><span class="tag tag-def">Definition</span><span class="chevron">▼</span></div>
+    <div class="card-body">
+      <p>The <span class="highlight">Internet of Things (IoT)</span> refers to the network of physical devices embedded with sensors, software, and connectivity that enables them to collect, send, and act on data from their environments. These devices — from lightbulbs and refrigerators to smart watches and security cameras — turn physical information into digital data.</p>
+      <p style="margin-top:0.7rem;">By 2020, the number of internet-connected devices exceeded <span class="highlight">20 billion</span> worldwide.</p>
+    </div>
+  </div>
+
+  <div class="card" onclick="toggleCard(this,event)">
+    <div class="card-header"><span class="card-title">Who Coined the Term "Internet of Things"?</span><span class="tag tag-history">History</span><span class="chevron">▼</span></div>
+    <div class="card-body">
+      <p>The term was coined by <span class="highlight">Kevin Ashton</span> in <strong>1999</strong> to describe the concept of giving computers "eyes and ears" through connected objects.</p>
+      <p style="margin-top:0.7rem;">The first IoT device was a <strong>toaster</strong> created by John Romkey in <strong>1990</strong>, which he controlled with his computer.</p>
+    </div>
+  </div>
+
+  <p class="section-label">How IoT Works</p>
+
+  <div class="card" onclick="toggleCard(this,event)">
+    <div class="card-header"><span class="card-title">IoT Ecosystem & Process</span><span class="tag tag-how">How It Works</span><span class="chevron">▼</span></div>
+    <div class="card-body">
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-text"><span class="step-label">Collect</span> — Smart devices use embedded processors, sensors, and communication hardware to collect data from their environment.</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-text"><span class="step-label">Send</span> — Data is sent to an IoT gateway or edge device via network connectivity protocols.</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-text"><span class="step-label">Analyze</span> — Data is either analyzed locally or sent to the cloud for processing. AI and machine learning may be used.</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-text"><span class="step-label">Act</span> — Devices act on the information, often without human intervention, though humans can still interact with them.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-label">Why IoT Matters</p>
+
+  <div class="card" onclick="toggleCard(this,event)">
+    <div class="card-header"><span class="card-title">Importance of IoT</span><span class="tag tag-def">Importance</span><span class="chevron">▼</span></div>
+    <div class="card-body">
+      <p>IoT helps people <span class="highlight">live and work smarter</span> by automating homes and giving businesses real-time insight into their systems — from machine performance to supply chain operations.</p>
+      <p style="margin-top:0.7rem;">For businesses, IoT can:</p>
+      <ul>
+        <li>Monitor overall business processes</li>
+        <li>Improve the customer experience</li>
+        <li>Save time and money; enhance employee productivity</li>
+        <li>Automate tasks and reduce labor costs</li>
+        <li>Generate more revenue and enable better decisions</li>
+        <li>Integrate and adapt business models</li>
+      </ul>
+      <p style="margin-top:0.7rem;">IoT is most common in <span class="highlight">manufacturing, transportation, and utilities</span>, but also appears in agriculture, infrastructure, and home automation.</p>
+    </div>
+  </div>
+
+  <p class="section-label gold">IoT Timeline</p>
+
+  <div class="card" onclick="toggleCard(this,event)">
+    <div class="card-header"><span class="card-title">Key Milestones in IoT History</span><span class="tag tag-history">History</span><span class="chevron">▼</span></div>
+    <div class="card-body">
+      <table class="compare-table">
+        <tr><th>Year</th><th>Milestone</th></tr>
+        <tr><td><strong>1990</strong></td><td>John Romkey creates the first IoT device: a toaster controlled by computer</td></tr>
+        <tr><td><strong>1999</strong></td><td>Kevin Ashton coins the term "Internet of Things"</td></tr>
+        <tr><td><strong>2000</strong></td><td>LG introduces its first connected refrigerator ($20,000)</td></tr>
+        <tr><td><strong>2008</strong></td><td>World's first IoT conference held in Zurich, Switzerland</td></tr>
+        <tr><td><strong>2010</strong></td><td>Tony Fadell founds Nest, maker of the smart thermostat</td></tr>
+        <tr><td><strong>2013</strong></td><td>Oxford Dictionary adds the term "internet of things"</td></tr>
+        <tr><td><strong>2014</strong></td><td>Amazon introduces Echo speaker + Alexa voice assistant</td></tr>
+        <tr><td><strong>2016</strong></td><td>Mirai botnet infects over 600,000 IoT devices with malware</td></tr>
+        <tr><td><strong>2020</strong></td><td>Internet-connected devices exceed 20 billion worldwide</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <p class="section-label red">Pros & Cons of IoT</p>
+
+  <div class="card" onclick="toggleCard(this,event)">
+    <div class="card-header"><span class="card-title">Advantages and Disadvantages of IoT</span><span class="tag tag-pros">Pros & Cons</span><span class="chevron">▼</span></div>
+    <div class="card-body">
+      <div class="pros-cons">
+        <div class="pros-box">
+          <h4>✓ Advantages</h4>
+          <ul>
+            <li>Access information anywhere, anytime, on any device</li>
+            <li>Improved communication between connected devices</li>
+            <li>Transfers data packets quickly, saving time and money</li>
+            <li>Automates tasks, reducing need for human intervention</li>
+          </ul>
+        </div>
+        <div class="cons-box">
+          <h4>✗ Disadvantages</h4>
+          <ul>
+            <li>More devices = greater risk of hackers stealing confidential info</li>
+            <li>Managing millions of devices is complex and challenging</li>
+            <li>A bug in the system can corrupt every connected device</li>
+            <li>No international compatibility standard — devices from different manufacturers may not communicate</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LESSON 2 -->
+  <div class="module-banner l2" style="margin-top:3rem;"><span class="badge">Lesson 2</span> Current Trends &amp; Emerging Technologies</div>
+
+  <p class="section-label blue">Current Trends in IT</p>
+
+  <div class="card" onclick="toggleCard(this,event)">
+    <div class="card-header"><span class="card-title">a. Cloud Computing</span><span class="tag tag-trend">Current Trend</span><span class="chevron">▼</span></div>
+    <div class="card-body">
+      <p><span class="highlight">Cloud computing</span> is a network of digital resources that companies can access instead of relying on local storage. It increases organizational efficiency and reduces infrastructure costs.</p>
+      <ul style="margin-top:0.7rem;">
+        <li>83% of enterprise workloads were projected to be in the cloud by 2020 (Forbes)</li>
+        <li>Enables cloud storage, employee collaboration, and virtualization</li>
+        <li>Less installation needed on individual computers — the Internet provides direct access</li>
+        <li>Organizations can offer cloud services as external products to generate revenue</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" onclick="toggleCard(this,event)">
+    <div class="card-header"><span class="card-title">b. Mobile Computing and Applications</span><span class="tag tag-trend">Current Trend</span><span class="chevron">▼</span></div>
+    <div class="card-body">
+      <p>Mobile phones, tablets, and apps have transformed both business and personal life. <span class="highlight">77% of Americans</span> own smartphones — a 35% increase since 2011 (Pew Research Center).</p>
+      <ul style="margin-top:0.7rem;">
+        <li>Mobile traffic and app use continue to skyrocket</li>
+        <li>More users access the internet via phones than traditional broadband</li>
+        <li>Fastest-growing companies have mobile websites, marketing, and apps</li>
+        <li>Cloud apps enable on-the-go capabilities for businesses</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" onclick="toggleCard(this,event)">
+    <div class="card-header"><span class="card-title">c. Big Data Analytics</span><span class="tag tag-trend">Current Trend</span><span class="chevron">▼</span></div>
+    <div class="card-body">
+      <p><span class="highlight">Big data</span> enables businesses to analyze massive sets of information with high volume, variety, and velocity. It offers a high return on investment by powering data-driven decisions.</p>
+      <ul style="margin-top:0.7rem;">
+        <li><strong>Data mining</strong> helps companies predict growth and achieve future success</li>
+        <li>Boosts productivity of marketing campaigns</li>
+        <li>Database maintenance is a growing IT career sector</li>
+        <li>Converts leads into paying customers through insight-driven strategy</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" onclick="toggleCard(this,event)">
+    <div class="card-header"><span class="card-title">d. Automation</span><span class="tag tag-trend">Current Trend</span><span class="chevron">▼</span></div>
+    <div class="card-body">
+      <p><span class="highlight">Automation</span> uses machine processes to replace repetitive manual tasks, increasing productivity and freeing employees to focus on higher-value work.</p>
+      <ul style="margin-top:0.7rem;">
+        <li>Can collect and process information from vendors, customers, and documentation</li>
+        <li>Automates invoicing, accounts-payable, and customer interactions</li>
+        <li>Creates new IT job opportunities in programming and supporting automated systems</li>
+        <li>Machine learning enhances automation for continuously improving systems</li>
+        <li>Future applications include automated grocery payments and consumer streamlining</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="section-label blue">Emerging Trends in IT</p>
+
+  <div class="card" onclick="toggleCard(this,event)">
+    <div class="card-header"><span class="card-title">a. Artificial Intelligence (AI) and Smart Machines</span><span class="tag tag-trend">Emerging</span><span class="chevron">▼</span></div>
+    <div class="card-body">
+      <p><span class="highlight">Artificial Intelligence (AI)</span> is the ability of a digital computer or robot to perform tasks associated with intelligent beings — reasoning, learning, pattern recognition, and decision-making — faster and more accurately than humans.</p>
+      <p style="margin-top:0.7rem;"><strong>Current AI Applications:</strong></p>
+      <ul>
+        <li><strong>Face Recognition</strong> — helps find missing persons and identify criminal suspects from camera footage</li>
+        <li><strong>Medical AI</strong> — predicts treatment outcomes, estimates hospital stay length, and analyzes health records using deep learning</li>
+        <li><strong>Home AI</strong> — voice assistants (Alexa, Google Assistant, Siri, Bixby) handle daily tasks like music, directions, and messaging</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" onclick="toggleCard(this,event)">
+    <div class="card-header"><span class="card-title">b. Virtual Reality (VR)</span><span class="tag tag-trend">Emerging</span><span class="chevron">▼</span></div>
+    <div class="card-body">
+      <p><span class="highlight">Virtual Reality (VR)</span> uses computer modeling and simulation to let users interact with an artificial 3D visual or sensory environment. Users are fully immersed via wearable devices.</p>
+      <ul style="margin-top:0.7rem;">
+        <li>Devices include goggles, headsets, gloves, and body suits</li>
+        <li>Motion sensors adjust the view in real time based on the user's movements (telepresence)</li>
+        <li>Data gloves with force-feedback allow users to "touch" and manipulate virtual objects</li>
+        <li>The <strong>Head-Mounted Display (HMD)</strong> is VR's most recognizable component</li>
+        <li>Display technology is the key difference between immersive VR and traditional interfaces</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" onclick="toggleCard(this,event)">
+    <div class="card-header"><span class="card-title">c. Augmented Reality (AR)</span><span class="tag tag-trend">Emerging</span><span class="chevron">▼</span></div>
+    <div class="card-body">
+      <p><span class="highlight">Augmented Reality (AR)</span> is a more versatile and practical version of VR — it does <em>not</em> fully immerse the user. Instead, it overlays digital images, sounds, and information on top of the real world.</p>
+      <ul style="margin-top:0.7rem;">
+        <li>Features interactive scenarios that enhance (not replace) real-world experience</li>
+        <li>Most well-known example: <strong>Pokémon Go</strong></li>
+        <li>Applications in retail, education, navigation, and industrial training</li>
+      </ul>
+      <table class="compare-table" style="margin-top:0.8rem;">
+        <tr><th></th><th>VR</th><th>AR</th></tr>
+        <tr><td><strong>Immersion</strong></td><td>Full (replaces reality)</td><td>Partial (enhances reality)</td></tr>
+        <tr><td><strong>Device</strong></td><td>HMD, gloves, body suit</td><td>Smartphone, glasses</td></tr>
+        <tr><td><strong>Example</strong></td><td>VR gaming, simulations</td><td>Pokémon Go, AR navigation</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" onclick="toggleCard(this,event)">
+    <div class="card-header"><span class="card-title">d. Blockchain Data</span><span class="tag tag-trend">Emerging</span><span class="chevron">▼</span></div>
+    <div class="card-body">
+      <p><span class="highlight">Blockchain</span> is a system of recording information in a way that makes it nearly impossible to change, hack, or cheat. It is essentially a <strong>digital ledger of transactions</strong> duplicated and distributed across an entire network.</p>
+      <ul style="margin-top:0.7rem;">
+        <li>Data can be added but not changed, replaced, or deleted — ensuring integrity</li>
+        <li>Authority is shared across many parties, reducing over-reliance on specific staff</li>
+        <li>Associated with cryptocurrencies like <strong>Bitcoin</strong></li>
+        <li>Especially useful for medical records, financial transactions, and IT security</li>
+        <li>Protects private data — both medical and IT industries benefit greatly</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" onclick="toggleCard(this,event)">
+    <div class="card-header"><span class="card-title">e. Internet of Things (IoT) as an Emerging Trend</span><span class="tag tag-trend">Emerging</span><span class="chevron">▼</span></div>
+    <div class="card-body">
+      <p>Beyond smart homes, IoT is an emerging business force. Cars, homes, appliances, and other products now connect to the Internet — acting like a <span class="highlight">digital personal assistant</span> for users and organizations alike.</p>
+      <ul style="margin-top:0.7rem;">
+        <li>Voice recognition allows access to cloud-stored data hands-free</li>
+        <li>Helps organizations with customer interactions, remote data collection, and confirmations</li>
+        <li>Enables smart features: locking doors remotely, hands-free music, auto payments</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" onclick="toggleCard(this,event)">
+    <div class="card-header"><span class="card-title">f. 5G Network</span><span class="tag tag-trend">Emerging</span><span class="chevron">▼</span></div>
+    <div class="card-body">
+      <p><span class="highlight">5G</span> is the 5th generation mobile network — a new global wireless standard that connects virtually everyone and everything: machines, objects, and devices.</p>
+      <ul style="margin-top:0.7rem;">
+        <li>Delivers higher multi-Gbps speeds, ultra-low latency, and massive network capacity</li>
+        <li>More reliable, more available, and more uniform user experience than previous generations</li>
+        <li>A unified air interface designed for next-generation user experiences</li>
+        <li>Will impact every industry: safer transportation, remote healthcare, precision agriculture, digitized logistics</li>
+      </ul>
+    </div>
+  </div>
+
+</div><!-- end tab-notes -->
+
+<!-- ===== FLASHCARDS TAB ===== -->
+<div class="tab-content" id="tab-flashcards">
+  <div class="flashcard-area">
+    <p class="fc-progress" id="fc-progress">Card 1 of 28</p>
+    <div class="fc-bar-wrap"><div class="fc-bar" id="fc-bar" style="width:3.6%"></div></div>
+    <div class="filter-row">
+      <button class="filter-btn active-f" onclick="filterFC('all',this)">All Topics</button>
+      <button class="filter-btn" onclick="filterFC('l1',this)">IoT</button>
+      <button class="filter-btn" onclick="filterFC('l2c',this)">Current Trends</button>
+      <button class="filter-btn" onclick="filterFC('l2e',this)">Emerging Trends</button>
+    </div>
+    <div class="fc-scene">
+      <div class="flashcard" id="fc-card" onclick="flipCard()">
+        <div class="fc-face fc-front">
+          <span class="fc-label">QUESTION</span>
+          <span class="fc-module-tag" id="fc-mtag"></span>
+          <p class="fc-question" id="fc-q"></p>
+          <p class="fc-hint">Tap to reveal answer</p>
+        </div>
+        <div class="fc-face fc-back">
+          <span class="fc-label">ANSWER</span>
+          <p class="fc-answer" id="fc-a"></p>
+        </div>
+      </div>
+    </div>
+    <div class="fc-controls">
+      <button class="btn btn-outline" onclick="prevCard()">← Prev</button>
+      <button class="btn btn-outline" onclick="shuffleCards()">🔀 Shuffle</button>
+      <button class="btn btn-teal" onclick="nextCard()">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== QUIZ TAB ===== -->
+<div class="tab-content" id="tab-quiz">
+  <div class="quiz-intro" id="quiz-intro">
+    <h2>Practice Quiz</h2>
+    <p>Test your knowledge on Module 5: IT Culture and the Society.</p>
+    <div class="quiz-filter-row">
+      <button class="qf-btn on" id="qfb-l1" onclick="toggleQuizFilter('l1')">Lesson 1: IoT</button>
+      <button class="qf-btn on l2c" id="qfb-l2" onclick="toggleQuizFilter('l2')">Lesson 2: Trends</button>
+    </div>
+    <button class="btn btn-teal" onclick="startQuiz()">Start Quiz</button>
+  </div>
+  <div id="quiz-body" style="display:none;"></div>
+</div>
+
+</main>
+
+<script>
+// ===== THEME =====
+function toggleTheme(){
+  const h=document.documentElement;
+  const dark=h.getAttribute('data-theme')==='dark';
+  h.setAttribute('data-theme',dark?'light':'dark');
+  document.getElementById('themeBtn').textContent=dark?'🌙 Dark':'☀ Light';
+}
+
+// ===== PARTICLES =====
+(function(){
+  const c=document.getElementById('particles');
+  const cols=['#39d2a6','#58a6ff','#f0c060','#bc8cff','#f85149'];
+  for(let i=0;i<18;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    const s=Math.random()*6+3;
+    p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;background:${cols[Math.floor(Math.random()*cols.length)]};animation-duration:${Math.random()*12+8}s;animation-delay:${Math.random()*8}s;`;
+    c.appendChild(p);
+  }
+})();
+
+// ===== TABS =====
+function switchTab(id,e){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  e.target.classList.add('active');
+}
+
+// ===== ACCORDION =====
+function toggleCard(card,e){
+  if(e.target.closest('button')||e.target.tagName==='A')return;
+  card.classList.toggle('open');
+}
+
+// ===== FLASHCARDS DATA =====
+const allCards=[
+  // Lesson 1: IoT
+  {m:'l1',label:'IoT',q:"What does IoT stand for and what is it?",a:"Internet of Things — a network of physical devices embedded with sensors and connectivity that collect, send, and act on data from their environments."},
+  {m:'l1',label:'IoT',q:"Who coined the term 'Internet of Things' and when?",a:"Kevin Ashton coined the term in 1999 to describe giving computers 'eyes and ears' through connected objects."},
+  {m:'l1',label:'IoT',q:"What was the first IoT device and who made it?",a:"A toaster created by John Romkey in 1990, which he controlled with his computer."},
+  {m:'l1',label:'IoT',q:"What are the 4 steps in how an IoT ecosystem works?",a:"1. Collect — sensors gather data\n2. Send — data goes to a gateway or cloud\n3. Analyze — processed locally or in the cloud\n4. Act — devices respond, often without human intervention"},
+  {m:'l1',label:'IoT',q:"Name 4 advantages of IoT.",a:"1. Access info anywhere, anytime, on any device\n2. Improved communication between devices\n3. Fast data transfer saves time & money\n4. Automates tasks and reduces human intervention"},
+  {m:'l1',label:'IoT',q:"Name 3 disadvantages of IoT.",a:"1. More devices = higher risk of hacking\n2. Managing millions of devices is complex\n3. No international compatibility standard between manufacturers"},
+  {m:'l1',label:'IoT',q:"In what year did internet-connected devices exceed 20 billion?",a:"2020"},
+  {m:'l1',label:'IoT',q:"What industries is IoT most common in?",a:"Manufacturing, transportation, and utilities — but also agriculture, infrastructure, and home automation."},
+  {m:'l1',label:'IoT',q:"When was the first IoT conference and where?",a:"2008 in Zurich, Switzerland."},
+  {m:'l1',label:'IoT',q:"What is the 'smart home' concept in IoT?",a:"Internet-enabled gadgets that automate home tasks, giving users control via voice or smartphone — e.g., lights, locks, thermostats, speakers."},
+  // Current Trends
+  {m:'l2c',label:'Current Trends',q:"What is Cloud Computing?",a:"A network of digital resources companies access instead of local storage — increases efficiency, reduces infrastructure costs, and enables file sharing across multiple sources."},
+  {m:'l2c',label:'Current Trends',q:"What percentage of enterprise workloads were projected to be in the cloud by 2020?",a:"83 percent, according to Forbes."},
+  {m:'l2c',label:'Current Trends',q:"What is Big Data Analytics?",a:"A trend that allows businesses to analyze massive sets of information with high volume, variety, and velocity to boost marketing productivity and predict growth."},
+  {m:'l2c',label:'Current Trends',q:"What is data mining?",a:"A method companies use to predict growth opportunities and achieve future success by examining data to understand markets and strategies."},
+  {m:'l2c',label:'Current Trends',q:"What is Automation in IT?",a:"The use of machine processes to replace repetitive manual tasks, increasing productivity and freeing employees for higher-value work."},
+  {m:'l2c',label:'Current Trends',q:"How does automation create IT job opportunities?",a:"It creates demand for IT professionals trained in supporting, programming, and developing automated processes."},
+  // Emerging Trends
+  {m:'l2e',label:'Emerging Trends',q:"What is Artificial Intelligence (AI)?",a:"The ability of a digital computer or robot to perform tasks associated with intelligent beings — reasoning, learning, pattern recognition, and decision-making — faster and more accurately than humans."},
+  {m:'l2e',label:'Emerging Trends',q:"Name 3 real-world applications of AI.",a:"1. Face recognition for missing persons/criminal investigations\n2. Medical AI for predicting treatment outcomes\n3. Home AI assistants (Alexa, Siri, Google Assistant, Bixby)"},
+  {m:'l2e',label:'Emerging Trends',q:"What is Virtual Reality (VR)?",a:"The use of computer modeling and simulation that enables a person to interact with an artificial 3D visual or sensory environment. Users are fully immersed via headsets, gloves, or body suits."},
+  {m:'l2e',label:'Emerging Trends',q:"What is the most recognizable component of VR?",a:"The Head-Mounted Display (HMD) — display technology is the key difference between immersive VR systems and traditional user interfaces."},
+  {m:'l2e',label:'Emerging Trends',q:"What is Augmented Reality (AR)? How is it different from VR?",a:"AR overlays digital images/sounds on the real world without full immersion. VR fully replaces reality; AR enhances it. Example: Pokémon Go (AR) vs. VR gaming headsets."},
+  {m:'l2e',label:'Emerging Trends',q:"What is Blockchain?",a:"A system of recording information in a way that makes it nearly impossible to change, hack, or cheat — a digital ledger of transactions duplicated and distributed across an entire network."},
+  {m:'l2e',label:'Emerging Trends',q:"What cryptocurrency is commonly associated with Blockchain?",a:"Bitcoin"},
+  {m:'l2e',label:'Emerging Trends',q:"Name 2 industries that benefit most from Blockchain.",a:"Medical industry and Information Technology industry — both benefit from added data protection and privacy security."},
+  {m:'l2e',label:'Emerging Trends',q:"What is 5G?",a:"The 5th generation mobile network — a new global wireless standard designed to connect virtually everyone and everything with higher speeds, ultra-low latency, and massive capacity."},
+  {m:'l2e',label:'Emerging Trends',q:"Name 4 industries 5G will impact.",a:"Transportation (safer), Healthcare (remote), Agriculture (precision), Logistics (digitized)"},
+  {m:'l2e',label:'Emerging Trends',q:"How does IoT function as an emerging trend for businesses?",a:"IoT acts like a digital personal assistant — enabling voice-controlled cloud access, remote data collection, and automating customer interactions and payments."},
+  {m:'l2e',label:'Emerging Trends',q:"What are the 4 current IT trends from the module?",a:"a. Cloud Computing\nb. Mobile Computing & Applications\nc. Big Data Analytics\nd. Automation"},
+];
+
+const moduleTagColors={
+  l1:'background:rgba(57,210,166,0.15);color:#39d2a6',
+  l2c:'background:rgba(88,166,255,0.15);color:#58a6ff',
+  l2e:'background:rgba(188,140,255,0.15);color:#bc8cff'
+};
+
+let fcDeck=[...allCards];
+let fcIdx=0;
+
+function renderCard(){
+  const card=fcDeck[fcIdx];
+  document.getElementById('fc-q').textContent=card.q;
+  document.getElementById('fc-a').textContent=card.a;
+  const mtag=document.getElementById('fc-mtag');
+  mtag.textContent=card.label;
+  mtag.style.cssText=moduleTagColors[card.m]||'';
+  const total=fcDeck.length;
+  document.getElementById('fc-progress').textContent=`Card ${fcIdx+1} of ${total}`;
+  document.getElementById('fc-bar').style.width=((fcIdx+1)/total*100)+'%';
+}
+function flipCard(){ document.getElementById('fc-card').classList.toggle('flipped'); }
+function nextCard(){
+  document.getElementById('fc-card').classList.remove('flipped');
+  fcIdx=(fcIdx+1)%fcDeck.length;
+  setTimeout(renderCard,180);
+}
+function prevCard(){
+  document.getElementById('fc-card').classList.remove('flipped');
+  fcIdx=(fcIdx-1+fcDeck.length)%fcDeck.length;
+  setTimeout(renderCard,180);
+}
+function shuffleCards(){
+  for(let i=fcDeck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[fcDeck[i],fcDeck[j]]=[fcDeck[j],fcDeck[i]];}
+  fcIdx=0;
+  document.getElementById('fc-card').classList.remove('flipped');
+  renderCard();
+}
+function filterFC(filter,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active-f'));
+  btn.classList.add('active-f');
+  fcDeck=filter==='all'?[...allCards]:allCards.filter(c=>c.m===filter);
+  fcIdx=0;
+  document.getElementById('fc-card').classList.remove('flipped');
+  renderCard();
+}
+function initFlashcards(){ renderCard(); }
+
+// ===== QUIZ DATA =====
+const allQuestions=[
+  {m:'l1',q:"Who coined the term 'Internet of Things'?",opts:["John Romkey","Kevin Ashton","Tony Fadell","Jeff Bezos"],ans:1,exp:"Kevin Ashton coined the term in 1999 to describe the concept of giving computers eyes and ears through connected objects."},
+  {m:'l1',q:"What was the first IoT device ever created?",opts:["A smart thermostat","A connected refrigerator","A toaster","An Echo speaker"],ans:2,exp:"John Romkey created the first IoT device — a toaster he controlled with his computer — in 1990."},
+  {m:'l1',q:"In what year did LG introduce its first connected refrigerator?",opts:["1999","2000","2008","2010"],ans:1,exp:"LG introduced its first connected refrigerator in 2000 with a $20,000 price tag."},
+  {m:'l1',q:"Which of the following is NOT a disadvantage of IoT?",opts:["Higher risk of hacking","No international compatibility standard","Ability to access info from anywhere","A bug can corrupt all connected devices"],ans:2,exp:"The ability to access information from anywhere is actually an ADVANTAGE of IoT, not a disadvantage."},
+  {m:'l1',q:"What technology can IoT use to make data collection easier and more dynamic?",opts:["Blockchain","Augmented Reality","Artificial Intelligence and Machine Learning","5G only"],ans:2,exp:"IoT can make use of Artificial Intelligence (AI) and Machine Learning to aid in making data collecting processes easier and more dynamic."},
+  {m:'l1',q:"The Mirai botnet infected over 600,000 IoT devices in which year?",opts:["2014","2015","2016","2020"],ans:2,exp:"The Mirai botnet infected over 600,000 IoT devices with malware in 2016."},
+  {m:'l1',q:"IoT is most abundant in which industries?",opts:["Education, healthcare, and retail","Manufacturing, transportation, and utilities","Finance, media, and agriculture","Tourism, logistics, and construction"],ans:1,exp:"IoT is most common in manufacturing, transportation, and utility organizations."},
+  {m:'l1',q:"By 2020, how many internet-connected devices existed worldwide?",opts:["Over 1 billion","Over 5 billion","Over 10 billion","Over 20 billion"],ans:3,exp:"By 2020, the number of internet-connected devices exceeded 20 billion worldwide."},
+  {m:'l2',q:"What percentage of enterprise workloads were projected to be in the cloud by 2020?",opts:["50%","70%","83%","95%"],ans:2,exp:"According to Forbes, 83 percent of enterprise workloads were expected to be in the cloud by 2020."},
+  {m:'l2',q:"Which current IT trend uses data mining to predict growth opportunities?",opts:["Cloud Computing","Automation","Mobile Computing","Big Data Analytics"],ans:3,exp:"Big Data Analytics uses data mining as a way companies can predict growth opportunities and achieve future success."},
+  {m:'l2',q:"Automation in IT primarily aims to:",opts:["Replace all human workers","Automate repetitive tasks and increase productivity","Reduce mobile app usage","Speed up blockchain transactions"],ans:1,exp:"Automation replaces repetitive manual tasks, increasing productivity and allowing employees to use their time on higher-value work."},
+  {m:'l2',q:"According to Pew Research, smartphone ownership in the US was ___% in 2019.",opts:["42%","65%","77%","90%"],ans:2,exp:"77% of Americans own smartphones — a 35% increase since 2011, according to Pew Research Center."},
+  {m:'l2',q:"Artificial Intelligence (AI) is defined as:",opts:["A robot that can walk and talk","The ability of a digital computer to perform tasks associated with intelligent beings","A new type of cloud storage","A method of encrypting blockchain data"],ans:1,exp:"AI is the ability of a digital computer or computer-controlled robot to perform tasks commonly associated with intelligent beings."},
+  {m:'l2',q:"Which AI application analyzes health records using deep learning to predict patient recovery?",opts:["Home AI","Face Recognition AI","Medical AI","Supply Chain AI"],ans:2,exp:"Medical AI uses deep learning applied to health records to find the likelihood of a patient's recovery and even mortality."},
+  {m:'l2',q:"Virtual Reality creates the illusion of 'being there' through:",opts:["Augmented overlays","Motion sensors that adjust the view based on the user's movements","Blockchain ledgers","Cloud streaming"],ans:1,exp:"The illusion of telepresence in VR is created by motion sensors that pick up the user's movements and adjust the view on screen in real time."},
+  {m:'l2',q:"Pokémon Go is an example of:",opts:["Virtual Reality","Blockchain","Augmented Reality","IoT"],ans:2,exp:"Pokémon Go is the most common example of Augmented Reality — it overlays digital images on the real-world environment."},
+  {m:'l2',q:"Blockchain is best described as:",opts:["A digital ledger of transactions that is nearly impossible to change or hack","A type of VR headset","A cloud computing service","An AI voice assistant"],ans:0,exp:"Blockchain is a system of recording information that makes it difficult or impossible to change, hack, or cheat — essentially a distributed digital ledger."},
+  {m:'l2',q:"5G is the ___ generation mobile network.",opts:["3rd","4th","5th","6th"],ans:2,exp:"5G stands for 5th generation mobile network — a new global wireless standard following 1G, 2G, 3G, and 4G."},
+  {m:'l2',q:"Which of the following is an emerging trend, NOT a current trend, in IT?",opts:["Cloud Computing","Automation","Big Data Analytics","Virtual Reality"],ans:3,exp:"Virtual Reality is listed as an Emerging Trend. Cloud Computing, Automation, and Big Data Analytics are all Current Trends."},
+  {m:'l2',q:"AR differs from VR in that AR:",opts:["Fully immerses the user in a computer-generated world","Requires a head-mounted display","Enhances the real world without full immersion","Uses data gloves for touch simulation"],ans:2,exp:"Augmented Reality enhances the real world with digital overlays without fully immersing the user, unlike VR which replaces reality completely."},
+];
+
+const moduleColors={l1:'#39d2a6',l2:'#58a6ff'};
+const moduleLabels={l1:'Lesson 1: IoT',l2:'Lesson 2: Trends'};
+let activeModules={l1:true,l2:true};
+let quizAnswers=[],quizSubmitted=[];
+
+function toggleQuizFilter(m){
+  activeModules[m]=!activeModules[m];
+  document.getElementById('qfb-'+m).classList.toggle('on',activeModules[m]);
+}
+function startQuiz(){
+  const pool=allQuestions.filter(q=>activeModules[q.m]);
+  if(!pool.length){alert('Please select at least one lesson!');return;}
+  document.getElementById('quiz-intro').style.display='none';
+  quizAnswers=new Array(pool.length).fill(null);
+  quizSubmitted=new Array(pool.length).fill(false);
+  renderQuiz(pool);
+  document.getElementById('quiz-body').style.display='block';
+}
+function renderQuiz(pool){
+  const body=document.getElementById('quiz-body');
+  body.innerHTML='';
+  pool.forEach((q,qi)=>{
+    const div=document.createElement('div');
+    div.className='quiz-q';div.style.animationDelay=(qi*0.04)+'s';
+    const mc=moduleColors[q.m];
+    div.innerHTML=`<div class="quiz-q-module" style="color:${mc}">${moduleLabels[q.m]}</div><div class="quiz-q-text">${qi+1}. ${q.q}</div>`;
+    q.opts.forEach((opt,oi)=>{
+      const btn=document.createElement('button');
+      btn.className='quiz-opt';btn.textContent=opt;
+      btn.onclick=()=>answerQ(qi,oi,q,div);div.appendChild(btn);
+    });
+    const fb=document.createElement('div');fb.id=`fb-${qi}`;div.appendChild(fb);
+    body.appendChild(div);
+  });
+  const sb=document.createElement('div');sb.style.cssText='text-align:center;margin-top:1.5rem;';
+  sb.innerHTML=`<button class="btn btn-teal" onclick="showScore(${pool.length})">Submit All &amp; See Score</button>`;
+  body.appendChild(sb);
+}
+function answerQ(qi,oi,q,qDiv){
+  if(quizSubmitted[qi])return;
+  quizSubmitted[qi]=true;quizAnswers[qi]=oi;
+  qDiv.querySelectorAll('.quiz-opt').forEach((btn,idx)=>{
+    if(idx===q.ans)btn.classList.add('correct');
+    else if(idx===oi&&oi!==q.ans)btn.classList.add('wrong');
+    else btn.classList.add('disabled');
+  });
+  const fb=document.getElementById(`fb-${qi}`);
+  fb.className='quiz-feedback '+(oi===q.ans?'ok':'bad');
+  fb.textContent=(oi===q.ans?'✓ Correct! ':'✗ Incorrect. ')+q.exp;
+}
+function showScore(total){
+  const pool=allQuestions.filter(q=>activeModules[q.m]);
+  const correct=quizAnswers.filter((a,i)=>a!==null&&a===pool[i]?.ans).length;
+  const pct=Math.round(correct/total*100);
+  const msg=pct>=80?"Excellent! You're ready! 🎉":pct>=60?"Good effort — review the tricky ones.":"Keep reviewing — you've got this! 💪";
+  const sd=document.createElement('div');sd.className='quiz-score';
+  sd.innerHTML=`<h2>Quiz Complete!</h2><span class="big-score">${correct}/${total}</span><p>${pct}% · ${msg}</p><br><br><button class="btn btn-teal" onclick="restartQuiz()">Try Again</button>`;
+  document.getElementById('quiz-body').appendChild(sd);
+  sd.scrollIntoView({behavior:'smooth'});
+}
+function restartQuiz(){
+  document.getElementById('quiz-body').style.display='none';
+  document.getElementById('quiz-body').innerHTML='';
+  document.getElementById('quiz-intro').style.display='block';
+}
+
+initFlashcards();
+</script>
+</body>
+</html>
